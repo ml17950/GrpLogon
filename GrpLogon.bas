@@ -33,8 +33,22 @@ Sub sortStringArray(arr() As String)
 	Next
 End Sub
 
+Function PadRight(ByVal sStr As String, ByVal nLenght As Integer, ByVal sChar As String) As String
+    Dim nLen As Integer
+    Dim i As Integer
+    Dim sTmp As String
+    
+    nLen = nLenght - Len(sStr)
+    
+    For i = 1 To nLen
+        sTmp = sTmp & sChar
+    Next
+    
+    Function = sStr & sTmp
+End Function
+
 Dim As Integer f, p, do_create, do_check, grpIdx
-Dim As String cmd, s, grpname, script, oldscript
+Dim As String cmd, s, grpname, script, oldscript, tmp
 Dim As String groupArray(99)
 
 Print "GrpLogon by M. Lindner - Version " & APPVERSION
@@ -47,6 +61,7 @@ Select Case LCase(Command())
 		Print "Options: help   > this help"
 		Print "         create > create empty scripts, if not exists"
 		Print "         check  > check, if a script exists"
+		Print "         login  > list last login date"
 		Print
 		Print "Example: GrpLogon /create"
 		Print
@@ -57,13 +72,62 @@ Select Case LCase(Command())
 	
 	Case "check", "/check", "-check"
 		do_check = 1
+	
+	Case "login", "/login", "-login"
+		
+		cmd = "net user /domain"
+		
+		f = FreeFile
+		Open Pipe cmd For Input As #f
+			Do Until EOF(f)
+			   Line Input #f, s
+			   
+			   If s <> "" Then
+			   	tmp = Trim(Mid(s, 1, 25))
+			   	If tmp <> "" Then
+				   	Select Case tmp
+				   		Case "-------------------------", "Der Befehl wurde erfolgre", "reich ausgeführt.", ""
+				   			' do nothing
+				   		Case Else
+				   			Print PadRight(tmp, 25, " ") & " => ";
+				   			Shell "net user " & tmp & " /domain | find ""Anmeldung"""
+				   	End Select
+			   	EndIf
+			   	
+			   	tmp = Trim(Mid(s, 24, 25))
+			   	If tmp <> "" Then
+				   	Select Case tmp
+				   		Case "-------------------------", "Der Befehl wurde erfolgre", "reich ausgeführt.", ""
+				   			' do nothing
+				   		Case Else
+				   			Print PadRight(tmp, 25, " ") & " => ";
+				   			Shell "net user " & tmp & " /domain | find ""Anmeldung"""
+				   	End Select
+			   	EndIf
+			   	
+			   	tmp = Trim(Mid(s, 51, 25))
+			   	If tmp <> "" Then
+				   	Select Case tmp
+				   		Case "-------------------------", "Der Befehl wurde erfolgre", "reich ausgeführt.", ""
+				   			' do nothing
+				   		Case Else
+				   			Print PadRight(tmp, 25, " ") & " => ";
+				   			Shell "net user " & tmp & " /domain | find ""Anmeldung"""
+				   	End Select
+			   	EndIf
+			   EndIf
+			Loop
+		Close #f
+		
+		End
+		
 End Select
 
 cmd = "net user %USERNAME% /domain"
 
 f = FreeFile
 Open Pipe cmd For Input As #f
-	Do Until Eof(f)
+	Do Until EOF(f)
 	   Line Input #f, s
 	   
 	   If s <> "" Then

@@ -1,6 +1,6 @@
 #Include Once "file.bi"
 
-Const APPVERSION As String = "2015.07.02"
+Const APPVERSION As String = "2018.03.12"
 
 Function ReplaceFilenameUmlaute(ByVal ConvertString As String) As String
 	Dim As String OutString=ConvertString
@@ -34,7 +34,7 @@ Sub sortStringArray(arr() As String)
 End Sub
 
 Dim As Integer f, p, do_create, do_check, grpIdx
-Dim As String cmd, s, grpname, script
+Dim As String cmd, s, grpname, script, oldscript
 Dim As String groupArray(99)
 
 Print "GrpLogon by M. Lindner - Version " & APPVERSION
@@ -88,7 +88,8 @@ sortStringArray(groupArray())
 For grpIdx = 0 To 99
 	If groupArray(grpIdx) <> "" Then
 		'Print grpIdx & " > " & groupArray(grpIdx)
-		script = ExePath & "\" & ReplaceFilenameUmlaute(groupArray(grpIdx)) & ".bat"
+		oldscript = ExePath & "\" & ReplaceFilenameUmlaute(groupArray(grpIdx)) & ".bat"
+		script = ExePath & "\grp_" & ReplaceFilenameUmlaute(groupArray(grpIdx)) & ".bat"
 		
 		If FileExists(script) <= -1 Then
 			If do_check = 1 Then
@@ -112,6 +113,15 @@ For grpIdx = 0 To 99
    			Close #22
 			Else
 				Print "not found: " & script
+			EndIf
+		EndIf
+		
+		If FileExists(oldscript) <= -1 Then
+			If do_check <> 1 Then
+   			Color 12,0
+   			Print "execute  : " & script
+   			Color 7,0
+   			Shell oldscript
 			EndIf
 		EndIf
 	EndIf

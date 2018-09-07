@@ -1,6 +1,6 @@
 #Include Once "file.bi"
 
-Const APPVERSION As String = "2018.03.12"
+Const APPVERSION As String = "2018.09.07"
 
 Function ReplaceFilenameUmlaute(ByVal ConvertString As String) As String
 	Dim As String OutString=ConvertString
@@ -164,7 +164,7 @@ For grpIdx = 0 To 99
    			Color 6,0
    			Print "execute  : " & script
    			Color 7,0
-   			Shell script
+   			Shell Chr(34) & script & Chr(34)
 			EndIf
 		Else
 			If do_create = 1 Then
@@ -185,7 +185,7 @@ For grpIdx = 0 To 99
    			Color 12,0
    			Print "execute  : " & script
    			Color 7,0
-   			Shell oldscript
+   			Shell Chr(34) & oldscript & Chr(34)
 			EndIf
 		EndIf
 	EndIf

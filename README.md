@@ -1,17 +1,22 @@
-GrpLogon by M. Lindner - Version 2019.07.29
+# GrpLogon
 
-Usage  : GrpLogon <Option>
+#### Usage
 
-Options: help   > this help
-         create > create empty scripts, if not exists
-         check  > check, if a script exists
+```
+GrpLogon <Option>
+```
 
-Example: GrpLogon /create
+#### Options
 
-===== Changelog =====
+- ```/help``` - will show a small help
+- ```/create``` - create empty scripts, if not exists
+- ```/check```- check, if a script exists
+- ```/login``` - list last login date
 
-  * 2014.12.16: initiale Version
-  * 2015.02.16: Fehlerbehebung bei Umlauten
-  * 2015.07.02: Sortierung der Gruppen nach Name
-  * 2018.09.07: Gruppen-Skripte mit Leerzeichen werden jetzt auch ausgeführt
-  * 2019.07.29: Schreibfehler behoben
+#### Changelog
+
+  * 2014.12.16: first version
+  * 2015.02.16: bugfix with german special characters (äöüß)
+  * 2015.07.02: sorted groups by name
+  * 2018.09.07: scrips with spaced will now be executed
+  * 2019.07.29: typo fixed

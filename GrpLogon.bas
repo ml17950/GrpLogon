@@ -1,6 +1,6 @@
 #Include Once "file.bi"
 
-Const APPVERSION As String = "2018.09.07"
+Const APPVERSION As String = "2019.07.29"
 
 Function ReplaceFilenameUmlaute(ByVal ConvertString As String) As String
 	Dim As String OutString=ConvertString
@@ -183,7 +183,7 @@ For grpIdx = 0 To 99
 		If FileExists(oldscript) <= -1 Then
 			If do_check <> 1 Then
    			Color 12,0
-   			Print "execute  : " & script
+   			Print "execute  : " & oldscript
    			Color 7,0
    			Shell Chr(34) & oldscript & Chr(34)
 			EndIf
